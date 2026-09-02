@@ -1,0 +1,22 @@
+[Unit]
+Description=StockBot Telegram command worker
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=stockbot
+Group=stockbot
+WorkingDirectory=/home/stockbot/stockbot-tse
+EnvironmentFile=/etc/stockbot-tse.env
+ExecStart=/home/stockbot/stockbot-tse/.venv/bin/python3 -m stockbot.telegram_worker
+Restart=on-failure
+RestartSec=15
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/stockbot/stockbot-tse
+
+[Install]
+WantedBy=multi-user.target

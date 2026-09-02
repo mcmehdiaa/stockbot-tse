@@ -1,0 +1,1 @@
+"""StockBot application package."""
